@@ -8,6 +8,7 @@ const USERS = [
 
 export async function fetchUserById(id) {
   try {
+    await new Promise((resolve) => setTimeout(resolve, 50));
     const user = USERS.find(user => user.id === id);
 
     if (!user) throw new Error("User not found");
