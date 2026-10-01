@@ -1,19 +1,17 @@
-// Задание 2 к Лекции 4. Спецификация — в README.md этой папки.
-
-// «База» пользователей — данные уже готовы, менять не нужно.
-const USERS = [
-  { id: 1, name: "Аня" },
-  { id: 2, name: "Борис" },
-];
-
 export async function fetchUserById(id) {
   try {
-    await new Promise((resolve) => setTimeout(resolve, 50));
-    const user = USERS.find(user => user.id === id);
+    const response = await fetch("https://jsonplaceholder.typicode.com/users")
 
+    if (!response.ok) {
+      throw new Error("Failed to fetch users")
+    }
+    const users = await response.json()  
+    const user = users.find(user => user.id === id);  
+    
     if (!user) throw new Error("User not found");
 
     return user
+ 
   } catch(error) {
     throw error
   }
