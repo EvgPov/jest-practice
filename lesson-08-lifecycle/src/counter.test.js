@@ -1,6 +1,39 @@
 import { createCounter } from "./counter.js";
 
-// Задание 1: напишите ДВА теста. Чтобы они не влияли друг на друга,
-// создавайте свежий счётчик в beforeEach, а не один на весь файл.
+describe("createCounter", () => {
+  let counter;
 
-test.todo("createCounter: свежее состояние через beforeEach, два независимых теста");
+  // arrange
+  beforeEach(() => {
+    counter = createCounter();
+  })
+
+  test("value is 1 after one increment", () => {
+    // act
+    counter.increment();
+
+    // assert
+    expect(counter.value).toBe(1);
+  })
+
+  test("value is 2 after two increments", () => {
+    // act
+    counter.increment();
+    counter.increment();
+
+    // assert
+    expect(counter.value).toBe(2);
+  })
+
+  test("resets value to 0 after increments", () => {
+    // arrange
+    counter.increment();
+    counter.increment();
+
+    // act
+    counter.reset();
+
+    // assert
+    expect(counter.value).toBe(0);
+  })
+})
