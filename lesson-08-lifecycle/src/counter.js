@@ -1,4 +1,17 @@
-// Задание 1 к Лекции 8. Спецификация — в README.md этой папки.
 export function createCounter() {
-  throw new Error("Реализуйте функцию createCounter (см. README.md)");
+  let count = 0
+
+  return {
+    increment() {
+      count += 1;
+      return count;
+    },
+    reset() {
+      count = 0;
+      return count;
+    },
+    get value() {
+      return count;
+    }
+  }
 }
