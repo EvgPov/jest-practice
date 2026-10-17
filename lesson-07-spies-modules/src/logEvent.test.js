@@ -1,6 +1,17 @@
 import { logEvent } from "./logEvent.js";
 
-// Задание 2: приставьте шпиона к console.log через jest.spyOn и проверьте вызов.
-// В конце обязательно верните оригинал: spy.mockRestore().
+describe("logEvent", () => {
+  test("logs the event name to console", () => {
+    // arrange
+    const spy = jest.spyOn(console, "log").mockImplementation(() => {})
+      
+    // act
+    const result = logEvent("click")
 
-test.todo("logEvent: вызывает console.log с нужным текстом (jest.spyOn)");
+    // assert
+    expect(spy).toHaveBeenCalledWith("Event: click")
+    expect(result).toBe(true)
+
+    spy.mockRestore()
+  })
+})

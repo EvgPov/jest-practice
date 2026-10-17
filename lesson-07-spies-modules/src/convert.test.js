@@ -1,6 +1,26 @@
 import { convertToRub } from "./convert.js";
 import { getRate } from "./currency.js";
 
-// Задание 1: подмените ВЕСЬ модуль currency через jest.mock и задайте ответ getRate.
+jest.mock("./currency.js")
 
-test.todo("convertToRub: переводит сумму по курсу из модуля (jest.mock)");
+describe("convertToRub", () => {
+  test("converts the amount at the exchange rate from the module", () => {
+    // arrange
+    getRate.mockReturnValue(90)
+
+    // act
+    const amountRub = convertToRub(2, "USD")
+
+    // assert
+    expect(amountRub).toBe(180)
+    expect(getRate).toHaveBeenCalledWith("USD")
+  })
+
+  test("rethrows the error when getRate fails", () => {
+    // arrange
+    getRate.mockImplementation(() => { throw new Error("no connection") })
+
+    // act + assert
+    expect(() => convertToRub(2, "USD")).toThrow("no connection")
+  })
+})
